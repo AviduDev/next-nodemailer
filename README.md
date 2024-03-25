@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+#Contact form built with Next 14, Nodemailer, ShadCn, React Hook Forms, and Zod
 
 ## Getting Started
 
