@@ -1,4 +1,4 @@
-#Contact form built with Next 14, Nodemailer, ShadCn, React Hook Forms, and Zod
+# Contact form built with Next 14, Nodemailer, ShadCn, React Hook Forms, and Zod
 
 ## Getting Started
 
