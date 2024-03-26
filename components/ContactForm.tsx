@@ -4,7 +4,7 @@ import React from "react";
 
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm, Controller } from "react-hook-form";
 import * as z from "zod";
 import { useState } from "react";
 
@@ -74,8 +74,11 @@ const defaultValues: Partial<ProfileFormValues> = {
   phone: "",
 };
 
-// Function for when to check if the form is valid
+// ---------------------------------------------------------
+
 const GmailForm = () => {
+  
+  // Function for when to check if the form is valid
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
@@ -85,8 +88,7 @@ const GmailForm = () => {
   // testing use state
   const [loading, setLoading] = useState(false);
 
-  // ---------------------------------------------------------
-
+  // function to submit the form
   const submitForm = async (data: ProfileFormValues) => {
     toast({
       title: "Hold on!",
@@ -117,7 +119,10 @@ const GmailForm = () => {
         description: "We'll get back to you soon.",
       });
 
+      // set loading to false
       setLoading(false);
+
+      // reset the form
     } catch (error) {
       toast({
         variant: "destructive",
@@ -225,7 +230,9 @@ const GmailForm = () => {
 
         {/* Submit button */}
         <div className="flex justify-end">
-          <Button type="submit" disabled={loading}>Submit</Button>
+          <Button type="submit" disabled={loading}>
+            Submit
+          </Button>
         </div>
       </form>
     </Form>

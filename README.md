@@ -8,3 +8,8 @@
 - [Nodemailer](https://github.com/nodemailer/nodemailer)
 - [Shadcn Ui](https://ui.shadcn.com/)
 - [Zod](https://github.com/colinhacks/zod)
+
+## ToDos
+- [x] Disabling button while submitting
+- [] Adding file attachments
+- [] Reset form after submitting
