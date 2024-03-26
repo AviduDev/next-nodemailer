@@ -4,8 +4,8 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
 export const POST = async (req: Request) => {
-  const { name, email, message } = await req.json();
-  console.log(name, email, message);
+  const { name, email, message, phone } = await req.json();
+  console.log(name, email, message, phone);
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -27,6 +27,8 @@ export const POST = async (req: Request) => {
       <p>  ${message} </p>
       <p>Email:</p>
       <p>  ${email} </p>
+      <p>Phone:</p>
+      <a href="tel:${phone}">${phone}</a>
     `,
     text: `${message} Send from ${email}`,
   };

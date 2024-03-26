@@ -6,6 +6,7 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFieldArray, useForm } from "react-hook-form";
 import * as z from "zod";
+import { useState } from "react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -44,6 +45,14 @@ const profileFormSchema = z.object({
       required_error: "Please select an email to display.",
     })
     .email(),
+  phone: z
+    .string()
+    .min(9, {
+      message: "Phone number must be at least 9 characters.",
+    })
+    .max(15, {
+      message: "Phone number must not be longer than 15 characters.",
+    }),
   message: z.string().max(160).min(4),
   urls: z
     .array(
@@ -62,6 +71,7 @@ const defaultValues: Partial<ProfileFormValues> = {
   name: "",
   email: "",
   message: "",
+  phone: "",
 };
 
 // Function for when to check if the form is valid
@@ -72,12 +82,18 @@ const GmailForm = () => {
     mode: "onChange",
   });
 
+  // testing use state
+  const [loading, setLoading] = useState(false);
+
   // ---------------------------------------------------------
 
   const submitForm = async (data: ProfileFormValues) => {
     toast({
       title: "Hold on!",
     });
+
+    setLoading(true);
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -100,6 +116,8 @@ const GmailForm = () => {
         title: "Message sent!",
         description: "We'll get back to you soon.",
       });
+
+      setLoading(false);
     } catch (error) {
       toast({
         variant: "destructive",
@@ -126,6 +144,7 @@ const GmailForm = () => {
               {/* Input field */}
               <FormControl>
                 <Input
+                  type="text"
                   placeholder="Type your name here"
                   autoComplete="true"
                   {...field}
@@ -146,6 +165,7 @@ const GmailForm = () => {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
+                  type="email"
                   placeholder="Type your email here"
                   autoComplete="true"
                   {...field}
@@ -158,6 +178,29 @@ const GmailForm = () => {
             </FormItem>
           )}
         />
+
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Phone</FormLabel>
+              <FormControl>
+                <Input
+                  type="tel"
+                  placeholder="Type your Phone here"
+                  autoComplete="true"
+                  {...field}
+                />
+              </FormControl>
+              <FormDescription>
+                Use short and sweet email, we dont save your data
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="message"
@@ -182,7 +225,7 @@ const GmailForm = () => {
 
         {/* Submit button */}
         <div className="flex justify-end">
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={loading}>Submit</Button>
         </div>
       </form>
     </Form>
