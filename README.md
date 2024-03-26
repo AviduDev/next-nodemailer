@@ -11,5 +11,5 @@
 
 ## ToDos
 - [x] Disabling button while submitting
-- [] Adding file attachments
-- [] Reset form after submitting
+- [ ] Adding file attachments
+- [ ] Reset form after submitting

@@ -30,6 +30,9 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 
+const MAX_FILE_SIZE = 5000000;
+const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
+
 // form data validation using zod
 const profileFormSchema = z.object({
   name: z
@@ -40,11 +43,13 @@ const profileFormSchema = z.object({
     .max(30, {
       message: "Name must not be longer than 30 characters.",
     }),
+
   email: z
     .string({
       required_error: "Please select an email to display.",
     })
     .email(),
+
   phone: z
     .string()
     .min(9, {
@@ -53,7 +58,9 @@ const profileFormSchema = z.object({
     .max(15, {
       message: "Phone number must not be longer than 15 characters.",
     }),
+
   message: z.string().max(160).min(4),
+
   urls: z
     .array(
       z.object({
@@ -74,10 +81,12 @@ const defaultValues: Partial<ProfileFormValues> = {
   phone: "",
 };
 
+// handle file upload
+
+
 // ---------------------------------------------------------
 
 const GmailForm = () => {
-  
   // Function for when to check if the form is valid
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
@@ -132,6 +141,10 @@ const GmailForm = () => {
       // Handle error as needed
     }
   };
+
+  function setFile(arg0: File): void {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <Form {...form}>
